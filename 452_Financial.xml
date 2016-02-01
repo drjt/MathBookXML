@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- <!DOCTYPE webwork SYSTEM "../schema/dtd/webwork.dtd">
+-->
+<!-- Overall element for a Mathbook XML document; mandatory, always-->
+<mathbook>
+
+    <!--
+    "docinfo" is like metadata, it mostly migrates
+    various places, or gets used multiple times  -->
+    <docinfo>
+        <!-- There can be several authors here -->
+        <author>
+            <personname>John Travis</personname>
+            <department>Department of Mathematics</department>
+            <!-- Use "break" tag anywhere for forced line break -->
+            <institution>Mississippi College<br />Clinton, MS, USA</institution>
+            <email>travis@mc.edu</email>
+        </author>
+        <!-- Could set date manually or use the "today" element 
+        <date><today /></date>  -->
+        <!--
+        TeX/LaTeX macros can be written in the usual way.
+        Whitespace and line breaks are irrelevant here.
+        -->
+        <macros>
+        \newcommand{\definiteintegral}[4]{\int_{#1}^{#2}\,#3\,d#4}
+        \newcommand{\indefiniteintegral}[2]{\int#1\,d#2}
+        \newcommand{\SUM}[3]{\sum_{#1}^{#2} #3  }
+        </macros>
+    </docinfo>
+
+    <!--
+    The article element is top-level for anything short of a book.
+    There is a book element, which is not demonstrated here.
+    The "filebase" attribute is used for the filename of the
+    HTML output, s part of a chunking scheme that is not complete.
+    -->
+    <article filebase="452_Financial">
+        <title>Applied Problem Solving - Mississippi College</title>
+        <!--
+        Articles have sections, which have subsections,
+        which have subsubsections.  A titled-paragraph
+        subdivision is planned.  These are all "containers"
+        and so line breaks and extraneous whitespace gets
+        scrubbed.  Use indentation and line breaks liberally
+        within containers to make the structure of your 
+        source readable.
+
+        An abstract and a bibliography are like special sections,
+        they belong at the same level in the hierarchy as a
+        section.
+        -->
+        <todo>Titled paragraph subdivisions</todo>
+
+        <abstract>
+            <p>
+             This section covers stuff related to the mathematics of finance including interest and annuities.</p>
+        </abstract>
+
+        <section>
+            <title>Interest</title>
+            
+            <p>
+            In today’s world, money can be used for a number of purposes. For this set of notes, we will be concerned with the use
+            of money as an investment. In general, when one has monetary resources then they can use those resources to purchase supplies,
+            equipment, manpower, etc. in order to generate goods and services for which others will pay. That is, they can use the money to
+            make money.</p>
+            <p>When one however takes a sum of money and allows someone else to use it then they forgo the opportunities described above and
+            therefore incurs a loss of the opportunity to earn revenue on those funds. In order to compensate the person lending the money for
+            that potential loss, an additional sum of money is added to the amount when the funds are eventually repaid. This additional sum is what
+            we call interest. 
+            </p>   
+            <p>Some communities may have a general negative attitude for charging interest on loans. It is certainly acceptable for one to lend
+            money out and not expect or require interest when repaid. Indeed, is is acceptable for one to just give money away to those that they
+            might choose to do so. Actually, when lending money to friends it might be best to just consider the loan a gift and repayment a blessing
+            since many friendships have been destroyed over the lack of repayment or the terms of repayment for borrowed funds.
+            </p>
+            <p>For these notes, we will cover the case for how to properly calculate interest on loans and leave it to the
+            reader regarding whether they want to use these mathematical formulas or not.
+            </p>
+            <subsection>
+            	<title>Notation:</title>
+            	<p>For the purposes of these notes, we will use the following notations:</p>
+				<ul>
+					<li>Original Amount Borrowed = Principle = <m>P</m></li>
+					<li>Future Amount to be Repaid = Future Value = <m>A</m></li>
+					<li>Amount Earned = Interest = <m>I</m></li>
+					<li>Time of investment in years = <m>t</m></li>
+					<li>Interest Rate per year = <m>i</m></li>
+					<li>Interest Rate per compounding period = <m>r</m></li>
+					<li>Number of compounding periods per year = <m>m</m></li>					
+					<li>Total Number of compounding periods = <m>n</m></li>
+					<li>Payout per compounding period = <m>R</m></li>
+				</ul>
+				<p>These terms will be described more completely below</p>
+			</subsection>	
+
+<!--
+<html>
+<input>
+<iframe height="600" src="https://hosted2.webwork.rochester.edu/webwork2/html2xml?
+&answersSubmitted=0
+&sourceFilePath=Library/Rochester/setAlgebra01RealNumbers/lhp1_31-34_mo.pg
+&problemSeed=123567890
+&displayMode=MathJax
+&courseID=daemon_course
+&userID=daemon
+&course_password=daemon
+&outputformat=simple" width="540">
+</iframe>
+</input>
+</html>
+						http://math.mc.edu/webwork2/mathbook/financial/?effectiveUser=practice9&user=practice9
+-->			
+					
+			<subsection>
+				<title>Simple Interest</title>
+				<p>To determine the amount of interest one should pay for the use of someone else’s money, one model is to base that
+				amount of interest to that it is directly proportional to the length of time over which the money is lent as well as directly
+				proportional to some rate which is based upon the borrower’s perceived ability to repay and based upon current market conditions.
+				To satisfy these constraints leads to the model for Simple Interest. </p>
+				<theorem><title>Simple Interest Formula</title>
+					<statement>Using simple interest, <m>I = P \cdot i \cdot t</m> and so <m>A = P + P \cdot i \cdot t</m> or <m>A = P(1 + i \cdot t)</m></statement>
+				</theorem>
+			</subsection>
+			<subsection>
+				<title>Compound Interest</title>
+				<p>When using simple interest, one only considers the value of the resource at the beginning of time and then again at the end. H
+				owever, the lender does without use of the funds at all times during the period of the investment. Indeed, if the original investment
+				were to only be lent for 1/2 of the original time period, then the borrower would have to pay the accrued interest at that time (1/2 as much
+				as planned) and then perhaps re-borrow the money plus the paid interest for the remaining time. However, for the second half, the amount borrowed
+				would include the additional interest that had to be paid.  Continuing this by shortening the period (say, 1/4’s or 1/12’s) would allow
+				for the amount borrowed at the end of each period to grow. The net effect of this recalculation over many periods gives rise to what is 
+				know as Compound Interest.</p>
+				<theorem><title>Future Value of Compound Interest</title>
+					<statement><p>Using Compound interest over t years, compounding m times per year, 
+					yields <m>\displaystyle A = P(1+r)^n</m> with <m>n=mt</m> and <m>r = i/m</m></p>
+					</statement>
+					<proof>
+					<p>To determine the future value of a deposit of size <m>P</m> over several periods, utilize the simple interest formula for a single
+					period to determine the value of the deposit after that one period. Then, take that new (slightly larger) amount as a starting point
+					for a new simple interest calculation covering the next period. Repeat for n periods to get the ending value over all periods.</p>
+					<p>To do this, let’s denote the present value after k periods as <m>P_k</m> and note that <m>P_0 = P</m>.  Then,</p>
+					<md>
+						<mrow>P_1 &amp; = P_0(1+r)</mrow>
+						<mrow>P_2 &amp; = P_1(1+r) = P_0(1+r)^2 </mrow>
+						<mrow>P_3 &amp; = P_2(1+r) = P_0(1+r)^3</mrow>
+						<mrow>P_4 &amp; = P_3(1+r) = P_0(1+r)^4</mrow>
+						<mrow> &amp; =  ...</mrow>
+						<mrow>P_{n-1} &amp; = P_{n-2}(1+r) = P_0(1+r)^{n-1}</mrow>
+						<mrow>P_n &amp; = P_{n-1}(1+r) = P_0(1+r)^n</mrow>
+					</md>
+					<p>Noting that <m>A = P_n </m> and <m>P = P_0 </m> gives</p>
+					<md>
+						<mrow>A &amp; = P(1+r)^n</mrow>
+					</md>
+					</proof>
+				</theorem>
+				<corollary><title>Present Value of Compound Interest</title>
+					<statement>Given a future value <m>A</m>, the present value using Compound Interest is given by <m>\displaystyle P = A(1+r)^{-n}</m></statement>
+					<proof><p>Take the formula above and solve for P. This gives,</p>
+						<p><m>\displaystyle P = A(1+r)^{-n}</m></p>
+					</proof>
+				</corollary>
+				<subsection>
+					<title>Effective Interest Rates</title>
+					<p>As one considers investments (and especially annuities) one may desire compounding the value of money over different compounding time 
+					frames. So, comparing raw interest rates becomes muddled. To avoid confusion we determine what is known as an effective interest rate (or
+					nominal interest rate) by computing the effective increase of 1 dollar over one year’s time span. This results in the effective rate <m>r_e</m></p>
+					<md>
+						<mrow>P + I = 1 + 1 \cdot r_e \cdot 1 = 1(1+r)^m</mrow>
+						<mrow>r_e = (1+r)^m - 1</mrow>
+					</md>
+					<example><title>Comparing different compounding periods</title>
+						<p>Determine the effective rate of compounding daily that is equivalent to compounding monthly at an annual rate of <m>r_{12}=4%</m>.  
+						To do so, first compute the effective interest rate of the monthly compounding (since you know its stated rate) using 
+						<m> \displaystyle (1+ \frac{0.04}{12})^{12} - 1</m>.  Then, use the effective rate
+						formula set equal to this nominal value and work your way backward to find the annual rate <m>r_{365}</m>for compounding daily.</p>
+						<md>
+							<mrow>(1+ \frac{0.04}{12})^{12} - 1 &amp; = (1+ \frac{r_{365}}{365})^{365} - 1 </mrow>
+							<mrow>(1+ \frac{0.04}{12})^{12} &amp; = (1+ \frac{r_{365}}{365})^{365} </mrow>
+							<mrow>\ln(1+ \frac{0.04}{12})^{12} &amp; = \ln(1+ \frac{r_{365}}{365})^{365} </mrow>
+							<mrow>12 \ln(1+ \frac{0.04}{12}) &amp; = 365 \ln(1+ \frac{r_{365}}{365}) </mrow>
+							<mrow>\frac{12}{365} \ln(1+ \frac{0.04}{12}) &amp; = \ln(1+ \frac{r_{365}}{365}) </mrow>
+							<mrow>e^{\frac{12}{365} \ln(1+ \frac{0.04}{12})} &amp; = 1+ \frac{r_{365}}{365} </mrow>
+							<mrow>365(e^{\frac{12}{365} \ln(1+ \frac{0.04}{12})} - 1) &amp; = r_{365} </mrow>
+						</md>
+						<p>and the rest is arithmetic.  Easily, the above example generalizes to other compounding periods.</p>
+					</example>
+					<exercise>
+						<title>Different Compounding Periods</title>
+						
+
+	                    <statement>
+    	                    <p>Compute the sum of <m>a = <var name="$a" /></m> and <m>b = <var name="$b" /></m>:<br /><m>a + b =</m> <answer var="$c" width="2" /></p>
+        	            </statement>
+
+            	        
+					</exercise>
+				</subsection>
+
+				<subsection>
+					<title>Continuous Compounding of Interest</title>
+					<p>As interest is compounded more often, the effective interest rate tends to increase. Indeed, as m increases then the time between
+					periods decreases and becomes infinitesimal.  We would then say that interest is compounded continuously. As it turns out, we will 
+					see that there is a limit to the effective rate as m grows.</p>
+					<theorem><title>Future Value when Compounding Continuously</title>
+						<statement><m>\displaystyle A = P e^{it}</m></statement>
+						<proof>
+							<md>
+								<mrow>A &amp; = P \lim_{m \rightarrow \infty} (1+i/m)^{m t}</mrow>
+								<mrow>  &amp; = P \lim_{m \rightarrow \infty} \left ( (1+i/m)^m \right )^t</mrow>
+								<mrow>  &amp; = P \lim_{m \rightarrow \infty} \left ( e^{ \ln(1+i/m)^m} \right )^t</mrow>
+								<mrow>  &amp; = P \lim_{m \rightarrow \infty} \left ( e^{m \cdot \ln(1+i/m)} \right )^t</mrow>
+								<mrow>  &amp; = P \lim_{m \rightarrow \infty} \left ( e^{\frac{ \ln(1+i/m)}{1/m}} \right )^t</mrow>
+								<mrow>  &amp; = P \lim_{m \rightarrow \infty} \left ( e^{\frac{ \frac{-i/m^2}{(1+i/m)}}{-1/m^2}} \right )^t</mrow>
+								<mrow>  &amp; = P \lim_{m \rightarrow \infty} \left ( e^{ \frac{i}{(1+i/m)}} \right )^t</mrow>
+								<mrow>  &amp; = P \left ( e^{ \frac{i}{1+0}} \right )^t</mrow>
+								<mrow>  &amp; = P e^{i \cdot t}</mrow>
+							</md>
+						</proof>
+					</theorem>
+					<sage>
+					  <input>
+var('t')
+@interact
+def _(rate = slider(1,12,1),m = slider(2,1000,2),end_time=(1,20,1)):
+    
+    n = m*t
+    discrete_compounding = (1+rate/m)^n
+    continuous_compounding = e^(rate*t)
+    G = plot(discrete_compounding,t,0,end_time)
+    G += plot(continuous_compounding,t,0,end_time,color='green')
+    G.show(title='Discrete vs Continuous')
+    H = plot(continuous_compounding-discrete_compounding,t,0,end_time,color='red')
+    H.show(title='Difference between the two')
+						</input>
+					</sage>
+				</subsection>
+			</subsection>
+			<subsection>
+				<title>Annuities</title>
+				<p>In the discussion above, investments considered a single “deposit” at the beginning of the time period and a single “payout” at the 
+				end of the time period. In many real-life situations, one may desire an option where there is perhaps a single deposit at the beginning of 
+				time and then a series of (perhaps equal) payouts over the time period. Such a sequence of payments is called an annuity.</p>
+				<theorem><title>Annuity Future Value </title>
+					<statement>An annuity of R per period over t years, paying out m times per year with yearly rate i yields 
+					<m>\displaystyle A = R\frac{(1+r)^n-1}{r}</m></statement>
+					<proof>
+					<p>We will presume this sequence of regular and equal payments of amount R starts in 1 period from the beginning of time 
+					and then ends on the last day of the allotted time period.  To determine the future value of this accumulated promise, take
+					each payment and find its future value at the end of the time period.  Note that this means the first payment must be “moved forward”
+					n-1 time periods, the second n-2 time periods, etc. until the last payment which is actually at the final time and so is not moved
+					at all. This gives</p>
+					<md>
+						<mrow>A &amp; = R(1+r)^{n-1} + R(1+r)^{n-2} + R(1+r)^{n-3} +  ...  R(1+r)^{1} + R</mrow>
+						<mrow> &amp; = R \left [ (1+r)^{n-1} + (1+r)^{n-2} + (1+r)^{n-3} +  ...  (1+r)^{1} + 1 \right ]</mrow>
+						<mrow> &amp; = R \displaystyle \frac{1-(1+r)^n}{1-(1+r)} </mrow>
+						<mrow> &amp; = R \displaystyle \frac{(1+r)^n-1}{r} </mrow>
+					</md>
+					</proof>
+				</theorem>
+				<corollary><title>Annuity Present Value </title>
+					<statement>An annuity of R per period over t years, paying out m times per year with yearly rate i yields 
+					<m>\displaystyle P = R\frac{1-(1+r)^{-n}}{r}</m></statement>
+					<proof>
+					<p>Apply the present value formula to the future value formula above.</p>
+					</proof>
+				</corollary>
+			</subsection>
+			<subsection>
+				<title>Perpetual Annuities</title>
+				<p>In general, an annuity is a regular set of payments over a set period of time. Howveer, sometimes you might want to set up an investment
+				which will return a set of regular payments forever. This is called a “perpetuity” or a “perpetual annuity”. To determine the amount to invest
+				to set up such an instrument, it is best to consider the present value at the beginning of time and require that the investment grow over only
+				one time period to the amount which needs to be dispersed.  That is, after one period the investment grows by the amount of the desired payment:</p>
+				<md>
+					<mrow> A &amp; = P + R = P(1+r)</mrow>
+					<mrow> R &amp; = P(1+r) - P</mrow>
+					<mrow> &amp; = Pr</mrow>
+				</md>
+				<p>If you want to consider money compounded more often than the payment period (say yearly payments but investments compounded m times per year</p>
+				<md>
+					<mrow> A &amp; = P + R = P(1+r)^m</mrow>
+					<mrow> R &amp; = P(1+r)^m - P</mrow>
+					<mrow> &amp; = P((1+r)^m - 1)</mrow>
+				</md>
+				<p>So, if you want to have a set of regular payments of R dollars each year, then set aside an investment of 
+				<m>\displaystyle P = \frac{R}{(1+r)^m - 1}</m></p>
+			</subsection>
+
+        </section>
+
+    </article>
+
+</mathbook>
