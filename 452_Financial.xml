@@ -270,6 +270,78 @@ def _(rate = slider(1,12,1),m = slider(2,1000,2),end_time=(1,20,1)):
 				</corollary>
 			</subsection>
 			<subsection>
+				<title>Annuity Calculations</title>
+				<subsection>
+					<title>Complete Amortization Schedule</title>
+					<p>To determine the breakdown regarding interest paid and reduction of principle for any given payment in an annuity, one can
+					simply apply a simple interest calculation covering one period to determine the interest and then the remainder of the payment
+					will be applied to reducing the principle amount owed. Continuing this process for the life of the annuity (loan) give what is 
+					known as an “amortization schedule”. In general, since this involves payments in real money then we often round up the calculation
+					of the regular payments so that the final payment will perhaps be slightly smaller than the others.</p>
+					<sage>
+						<input>
+def roundup(x):
+    return (ceil(100*x)/100).n()
+
+@interact
+def _(P = input_box(10000,label='Principle'),
+                    m = input_box(12,label='Compounting Periods per year'),
+                    t = input_box(2,label='Number of Years'),
+                    rate = input_box(0.04,label='Yearly Interest Rate')):
+    n = m*t
+    r = rate/m
+    R1 = P*r/(1-(1+r)^(-n))
+    R = (ceil(100*R1)/100).n()
+    Bal = P    
+    pretty_print(html('Monthly Payment is $%.2f$'%(R)))
+    for k in range(n-1):
+        Interest = round(Bal*r,2)
+        Reduction = R - Interest
+        pretty_print(html("Pmt#$%s$: "%str(k+1)+"Starting Balance = $ %.2f$,"%Bal+" interest Owed = $%.2f$  "%(Interest)+", Payment to Principal = $%.2f$  "%(Reduction)))
+        Bal = Bal - Reduction
+    Interest = roundup(Bal*r)
+    LastPmt = Bal+Interest
+    pretty_print(html("Pmt#$%s$: "%str(n)+"Starting Balance = $ %.2f$,"%Bal+" interest Owed = $%.2f$  "%(Interest)+", final payment of = $%.2f$  "%(LastPmt)))
+						</input>
+					</sage>
+				</subsection>
+				<subsection>
+					<title>Determining directly the interest for any given payment in an annuity</title>
+					<p>To determine the amount of interest in the kth payment, one can avoid having to compute the entire amortization schedule by 
+					computing the present value <m>P_{mid}</m> of the final n-k payments at the previous time period. This will be at the n-(k-1
+					Then, compute the interest demanded on that amount one time period later.  That is, <m>P_{mid} \cdot r </m>.</p>
+					<md>
+						<mrow>P_{mid} = R \frac{1-(1+r)^{-(n-(k+1))}}{r}</mrow>
+						<mrow>P_{mid} \cdot r = R (1-(1+r)^{k-n-1})</mrow>
+					</md>
+
+					<sage>
+						<input>
+def roundup(x):
+    return (ceil(100*x)/100).n()
+
+@interact
+def _(P = input_box(10000,label='Principle'),
+                    m = input_box(12,label='Compounting Periods per year'),
+                    t = input_box(2,label='Number of Years'),
+                    rate = input_box(0.04,label='Yearly Interest Rate'),
+                    k = input_box(12,label='Payment Period')):
+    n = m*t
+    r = rate/m
+    R = roundup(P*r/(1-(1+r)^(-n)))
+    Bal = P    
+    pretty_print(html('Monthly Payment is $%.2f$.'%(R)))
+    PsubK = R*(1-(1+r)^(k-n-1))/r
+    Interest = PsubK*r
+    Reduction = R - Interest
+    pretty_print(html('At the $%s$th '%str(k)+'payment period, Balance = $%.2f$'%(PsubK)+' requires interest of $%.2f$'%(Interest)+' and principle reduction of $%.2f$'%(Reduction)))
+						</input>
+					</sage>
+
+
+				</subsection>
+			</subsection>
+			<subsection>
 				<title>Perpetual Annuities</title>
 				<p>In general, an annuity is a regular set of payments over a set period of time. Howveer, sometimes you might want to set up an investment
 				which will return a set of regular payments forever. This is called a “perpetuity” or a “perpetual annuity”. To determine the amount to invest
