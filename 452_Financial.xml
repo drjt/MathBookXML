@@ -165,9 +165,11 @@
 				</corollary>
 				<subsection>
 					<title>Effective Interest Rates</title>
-					<p>As one considers investments (and especially annuities) one may desire compounding the value of money over different compounding time 
-					frames. So, comparing raw interest rates becomes muddled. To avoid confusion we determine what is known as an effective interest rate (or
-					nominal interest rate) by computing the effective increase of 1 dollar over one year’s time span. This results in the effective rate <m>r_e</m></p>
+					<p>The published yearly interest rate is also called the “nominal” rate.
+					As one considers investments (and especially annuities) one may desire compounding the value of money over different compounding time 
+					frames. So, comparing raw interest rates becomes muddled since the same nominal rate can result in wildly different actual growth amounts.
+					To avoid confusion we determine what is known as an effective interest rate
+					by computing the increase of 1 dollar over one year’s time span. This results in the effective rate <m>r_e</m></p>
 					<md>
 						<mrow>P + I = 1 + 1 \cdot r_e \cdot 1 = 1(1+r)^m</mrow>
 						<mrow>r_e = (1+r)^m - 1</mrow>
@@ -176,7 +178,7 @@
 						<p>Determine the effective rate of compounding daily that is equivalent to compounding monthly at an annual rate of <m>r_{12}=4%</m>.  
 						To do so, first compute the effective interest rate of the monthly compounding (since you know its stated rate) using 
 						<m> \displaystyle (1+ \frac{0.04}{12})^{12} - 1</m>.  Then, use the effective rate
-						formula set equal to this nominal value and work your way backward to find the annual rate <m>r_{365}</m>for compounding daily.</p>
+						formula set equal to this effective value and work your way backward to find the annual rate <m>r_{365}</m>for compounding daily.</p>
 						<md>
 							<mrow>(1+ \frac{0.04}{12})^{12} - 1 &amp; = (1+ \frac{r_{365}}{365})^{365} - 1 </mrow>
 							<mrow>(1+ \frac{0.04}{12})^{12} &amp; = (1+ \frac{r_{365}}{365})^{365} </mrow>
@@ -340,10 +342,95 @@ def _(P = input_box(10000,label='Principle'),
 
 
 				</subsection>
+				<subsection>
+					<title>Annuity with annual cost of living increases</title>
+					<p>Generally, an annuity is a sequence of equal payments over time. In reality, people like to use an annuity to
+					fund retirement and one might want to allow for the payments to increase each year to keep up with the cost of living.
+					Another alternative occurs perhaps when one might purchase a house and not be able to make the necessary payments at the 
+					beginning of the annuity but expects to earn more and therefore be able to pay more in later years of the loan. To analyze
+					these situations takes a bit more care since the compounding period and the (annual) increases are not necessarily on the 
+					same time frames.  To fix this, the idea is to convert the periodic payments in terms of years by converting, for example,
+					the 12 monthly payments into a single but equivalent lump sum payment at the end of the year.  So long as the lump sum payment
+					is mathematically equivalent to the sequence of payments then all is equivalent. Then, we can tack on the desired cost of living 
+					increase to these annualized payments and use that rate of increase for the yearly annuity.</p>
+					<theorem>
+						<title>Yearly Annuity with Cost of Living Adjustment</title>
+							<statement>The Present Value of a yearly annuity initially in the amount of <m>R_y</m> which includes yearly cost-of-living adjustments is 
+							<m>R_y \frac{1}{1+r_e} \left [ \frac{ \left ( \frac{1+a}{1+r_e} \right )^t-1}{ \left (\frac{1+a}{1+r_e} \right )-1} \right]</m>
+							with <m>R_y</m> = first year’s payment, 
+							<m>r_e</m> = effective yearly rate, a = yearly cost-of-living increase, t = number of years.</statement>
+							<proof>
+								<p>To save some time, let’s define <m>z = \frac{1+a}{1+r_e}</m>.  Then, the value of each yearly payment can be
+								valued at the beginning of the annuity and accumulated.  If we assume a starting payment of R at the end of the first
+								year and increase this by a factor of (1+a) for each subsequent year,</p>
+					<md>
+						<mrow>P &amp; = R_y (1+r_e)^{-1} + R_y (1+a)(1+r_e)^{-2} + R_y (1+a)^{2}(1+r_e)^{-3}  + R_y (1+a)^{3}(1+r_e)^{-4} + ... + R_y (1+a)^{t-1}(1+r_e)^{-t}</mrow>
+						<mrow>&amp; = R_y \left [ (1+r_e)^{-1} + (1+a)(1+r_e)^{-2} + (1+a)^{2}(1+r_e)^{-3} + (1+a)^{3}(1+r_e)^{-4} + ... + (1+a)^{t-1}(1+r_e)^{-t} \right ]</mrow>
+						<mrow>&amp; = R_y \frac{1}{1+r_e} \left [ 1 + z + z^2 + z^3 + ... +  z^{t-1} \right ]</mrow>
+						<mrow>&amp; = R_y \frac{1}{1+r_e} \left [ \frac{1-z^t}{1-z} \right] </mrow>
+						<mrow>&amp; = R_y \frac{1}{1+r_e} \left [ \frac{z^t-1}{z-1} \right] </mrow>
+					</md>							
+							</proof>
+							
+					</theorem>
+					<p>Obviously, one may want to receive these payments more often than once a year but account for yearly adjustments to the payments.
+					In this situation, one should determine the size R of the m payments in the first year and then find the accumulated value of those 
+					payments at the end of one year. Taking that value as R in the theorem above gives the present value of the cost-of-living adjusted
+					annuity stream. Of course one can take that present value and determine the value of the income stream at any other desired time.</p>
+					<example>
+					<title>Yearly Annuity with Cost of Living Increase</title>
+					<p>Let’s consider the value of making payments of 10 dollars per year in year one and then increasing the payments by a rate of
+					a = 4% each year.  Assuming an interest rate of <m>r_e</m> = 3% compounded yearly for t = 8 years, what is the present value of this annuity?</p>
+					<md>
+						<mrow>z = \frac{1.04}{1.03} \approx 1.0097</mrow>
+						<mrow>P &amp; \approx 10 \frac{1}{1.03} \left [ \frac{1.0097^8-1}{0.0097} \right]</mrow>
+						<mrow> &amp; = 10 \frac{1}{1.03} 8.2769334 = 80.36 </mrow>
+					</md>
+					</example>
+					<example>
+						<title>Monthly Annuity with Annual Cost of Living Increase</title>
+						<p>To allow for more frequent payments, say monthly, but with yearly adjustments to the amount of these payments one can determine
+						the future value of the initial payments over one year.  Then, use that value as a “yearly” payment adjusted for cost-of-living increase.</p>
+						<p>Consider the following:  Initial monthly payments of $10/month with interest compounded at 3% and with 4% yearly 
+						cost-of-living adjustments for 8 years. First, compute the future value <m>R_y</m> of a year of payments and then apply the theorem above.</p>
+						<md>
+							<mrow>r_e = \left ( 1 + \frac{0.03}{12} \right )^{12}-1 \approx 0.0304159</mrow>
+							<mrow>R_y = 10 \frac{(1 + \frac{0.03}{12})^{12}-1}{\frac{0.03}{12}} = 121.66</mrow>
+							<mrow>z = \frac{1.04}{1.0304159} \approx 1.00930119576 </mrow>
+							<mrow>P = 121.66 \frac{1}{1.0304159} \left [ \frac{1.00930119576^8-1}{0.00930119576} \right] = 975.88</mrow>
+						</md>
+					</example>
+					<example>
+					<p>The interactive cell below determines the effect of compounding and cost of living increases for each payment of an annuity.</p>
+					<sage>
+						<input>
+@interact
+def _(R = (10),rate = (0.03), m = (1), t = (8), a = (0.04)):
+    r = rate/m
+    n = m*t
+    A = 0
+    for k in range(t):
+        R1 = R*(1+a)^(k)
+        print "Year ",k+1," has payment(s) of ", R1
+        yearend = k*m
+        print "yearend ",yearend
+        for j in range(m):
+            tempBeg = R1*(1+r)^(-(yearend+j+1))
+            tempEnd = R1*(1+r)^(n-yearend-j-1)
+            A += tempEnd
+            print "  ",j+1,"th payment is worth at the start of time ",tempBeg
+            print "  ",j+1,"th payment is worth at the end of time ",tempEnd
+    P = A*(1+r)^(-n)
+    print "Total value of payments at the start of time is ",P
+    print "Total value of payments at the end of time is ",A
+    					</input>
+					</sage>
+					</example>
+				</subsection>
 			</subsection>
 			<subsection>
 				<title>Perpetual Annuities</title>
-				<p>In general, an annuity is a regular set of payments over a set period of time. Howveer, sometimes you might want to set up an investment
+				<p>In general, an annuity is a regular set of payments over a set period of time. However, sometimes you might want to set up an investment
 				which will return a set of regular payments forever. This is called a “perpetuity” or a “perpetual annuity”. To determine the amount to invest
 				to set up such an instrument, it is best to consider the present value at the beginning of time and require that the investment grow over only
 				one time period to the amount which needs to be dispersed.  That is, after one period the investment grows by the amount of the desired payment:</p>
