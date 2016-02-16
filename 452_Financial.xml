@@ -188,18 +188,17 @@
 							<mrow>e^{\frac{12}{365} \ln(1+ \frac{0.04}{12})} &amp; = 1+ \frac{r_{365}}{365} </mrow>
 							<mrow>365(e^{\frac{12}{365} \ln(1+ \frac{0.04}{12})} - 1) &amp; = r_{365} </mrow>
 						</md>
-						<p>and the rest is arithmetic.  Easily, the above example generalizes to other compounding periods.</p>
+						<p>and the rest is arithmetic.  Easily, the above example generalizes to other compounding periods:</p>
+						<md>
+							<mrow>(1+ \frac{r_1}{m_1})^{m_1} - 1 &amp; = (1+ \frac{r_2}{m_2})^{m_2} - 1 </mrow>
+							<mrow>(1+ \frac{r_1}{m_1})^{m_1} &amp; = (1+ \frac{r_2}{m_2})^{m_2} </mrow>
+							<mrow>\ln(1+ \frac{r_1}{m_1})^{m_1} &amp; = \ln(1+ \frac{r_2}{m_2})^{m_2} </mrow>
+							<mrow>m_1 \ln(1+ \frac{r_1}{m_1}) &amp; = m_2 \ln(1+ \frac{r_2}{m_2}) </mrow>
+							<mrow>\frac{m_1}{m_2} \ln(1+ \frac{r_1}{m_1}) &amp; = \ln(1+ \frac{r_2}{m_2}) </mrow>
+							<mrow>e^{\frac{m_1}{m_2} \ln(1+ \frac{r_1}{m_1})} &amp; = 1+ \frac{r_2}{m_2} </mrow>
+							<mrow>m_2(e^{\frac{m_1}{m_2} \ln(1+ \frac{r_1}{m_1})} - 1) &amp; = r_2 </mrow>
+						</md>
 					</example>
-					<exercise>
-						<title>Different Compounding Periods</title>
-						
-
-	                    <statement>
-    	                    <p>Compute the sum of <m>a = <var name="$a" /></m> and <m>b = <var name="$b" /></m>:<br /><m>a + b =</m> <answer var="$c" width="2" /></p>
-        	            </statement>
-
-            	        
-					</exercise>
 				</subsection>
 
 				<subsection>
@@ -360,9 +359,14 @@ def _(P = input_box(10000,label='Principle'),
 							with <m>R_y</m> = first year’s payment, 
 							<m>r_e</m> = effective yearly rate, a = yearly cost-of-living increase, t = number of years.</statement>
 							<proof>
-								<p>To save some time, let’s define <m>z = \frac{1+a}{1+r_e}</m>.  Then, the value of each yearly payment can be
-								valued at the beginning of the annuity and accumulated.  If we assume a starting payment of R at the end of the first
-								year and increase this by a factor of (1+a) for each subsequent year,</p>
+								<p>To save some time, let’s define <m>z = \frac{1+a}{1+r_e}</m>.  Notice that if the cost of living increase (a) is greater than
+								the effective rate of interest <m>r_e</m> then the net investment will grow with a interest rate related to <m>z-1 \gt 0</m>.  
+								On the other
+								hand, if the cost of living increase is less than the effective rate of interest, then the net investment wil grow at an interest
+								rate <m>z-1 \lt 0</m>...that it, your periodic payments will not be keeping up with inflation.  Notice in the formulas below that this 
+								quotient z essentially replaces the standard compound growth factor (1+r). </p>
+								<p>Starting with a payment of R at the end of the first
+								year, increase this by a factor of (1+a) for each subsequent year gives a present value of </p>
 					<md>
 						<mrow>P &amp; = R_y (1+r_e)^{-1} + R_y (1+a)(1+r_e)^{-2} + R_y (1+a)^{2}(1+r_e)^{-3}  + R_y (1+a)^{3}(1+r_e)^{-4} + ... + R_y (1+a)^{t-1}(1+r_e)^{-t}</mrow>
 						<mrow>&amp; = R_y \left [ (1+r_e)^{-1} + (1+a)(1+r_e)^{-2} + (1+a)^{2}(1+r_e)^{-3} + (1+a)^{3}(1+r_e)^{-4} + ... + (1+a)^{t-1}(1+r_e)^{-t} \right ]</mrow>
@@ -391,7 +395,7 @@ def _(P = input_box(10000,label='Principle'),
 						<title>Monthly Annuity with Annual Cost of Living Increase</title>
 						<p>To allow for more frequent payments, say monthly, but with yearly adjustments to the amount of these payments one can determine
 						the future value of the initial payments over one year.  Then, use that value as a “yearly” payment adjusted for cost-of-living increase.</p>
-						<p>Consider the following:  Initial monthly payments of $10/month with interest compounded at 3% and with 4% yearly 
+						<p>Consider the following:  Initial monthly payments of 10 dollars per month with interest compounded at 3% and with 4% yearly 
 						cost-of-living adjustments for 8 years. First, compute the future value <m>R_y</m> of a year of payments and then apply the theorem above.</p>
 						<md>
 							<mrow>r_e = \left ( 1 + \frac{0.03}{12} \right )^{12}-1 \approx 0.0304159</mrow>
@@ -404,13 +408,16 @@ def _(P = input_box(10000,label='Principle'),
 					<p>The interactive cell below determines the effect of compounding and cost of living increases for each payment of an annuity.</p>
 					<sage>
 						<input>
+def round(x):
+    return (floor(100*(x+0.005))/100).n()
+    
 @interact
 def _(R = (10),rate = (0.03), m = (1), t = (8), a = (0.04)):
     r = rate/m
     n = m*t
     A = 0
     for k in range(t):
-        R1 = R*(1+a)^(k)
+        R1 = round(R*(1+a)^(k))
         print "Year ",k+1," has payment(s) of ", R1
         yearend = k*m
         print "yearend ",yearend

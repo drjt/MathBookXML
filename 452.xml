@@ -35,7 +35,7 @@
     HTML output, s part of a chunking scheme that is not complete.
     -->
     <article filebase="452">
-        <title>Applied Problem Solving - Mississippi College</title>
+        <title>Probability</title>
         <!--
         Articles have sections, which have subsections,
         which have subsubsections.  A titled-paragraph
@@ -53,14 +53,14 @@
 
         <abstract>
             <p>
-             This section covers stuff mostly related to sequences and series.</p>
+             These notes deal with the derivation of formulas needed for solving problems related to probability.</p>
         </abstract>
-
+	
         <section>
             <title>Geometric and Negative Binomial Series</title>
-            
             <p>
-              Knowledge of the use of power series is very important when dealing with financial mathematics.  In particular, the geometric series is foundational. </p>   
+              Knowledge of the use of power series is very important when dealing with both probabilities and with financial mathematics.  
+              In particular, the geometric series is very useful. </p>   
             <md>
 				<mrow>S = \SUM {k=0} {\infty} {x^k} = \frac{1}{1-x}</mrow>
 			</md> provided x is small is of utmost importance  
@@ -101,7 +101,6 @@
 					</input>
 				</sage>
 			</subsection>
-			
 			<subsection>
 				<title>Alternate Forms for the Geometric Series</title>
 				<subsection>
@@ -134,7 +133,6 @@
 					<md>
 						<mrow>\SUM {k=0} {\infty} {(x-b)^k} = \frac{1}{1-(x-b)}, |x-b| \lt 1</mrow>
 					</md>					
-
 				</subsection>
 				<subsection>
 					<title>Application: Converting repeating decimals to fractional form</title>
@@ -158,60 +156,130 @@
 						<mrow> &amp; = 0.9 \frac{1}{1-0.1} = 0.9 \frac{1}{0.9} = 1 </mrow>
 					</md>
 				</subsection>
-			</subsection>		
-        	<subsection>
-        	  	<title>Geometric Distribution</title>
-        			<p>Consider the situation where one can observe a sequence  of independent trials where the likelihood of a success on each individual trial
-        			stays constant from trial to trial. Call this likelihood the probably of "success" and denote its value by <m>p</m> 
-        			where <m> 0 \lt p \lt 1 </m>.  
-        			If we let the variable <m>X</m> measure the number of trials needed in order to obtain the first success, 
-        			then the resulting distribution of probabilities is called a Geometric Distribution.</p>
-        			<subsection>
-        				<title>Derivation of Geometric Probability Function</title>
-        					<p> Since successive trials are independent, then the probability of the first success occurring on the mth trial presumes that
-        					the previous m-1 trials were all failures.  Therefore the desired probability is given by <m>P(X=m) = P(FF...FS) = (1-p)^{m-1}p</m></p>
-        			</subsection> 
-        			<subsection>
-        				<title>Geometric Distribution sums to 1</title>
-        				<md>
-        					<mrow>\SUM {k=1} {\infty} {(1-p)^{k-1} p} = p \SUM {j=0} {\infty} {(1-p)^j} = p \frac{1}{1-(1-p)} = 1</mrow>
-        				</md>
-        			</subsection>
-        			<subsection>
-        				<title>Derivation of Geometric Mean</title>
-        					<p> </p>
-        					<md>
-        						<mrow>\mu &amp; = E[X] = \SUM {k=0} {\infty} {k(1-p)^{k-1}p}</mrow>
-        						<mrow> &amp; = p \SUM {k=1} {\infty} {k(1-p)^{k-1}}</mrow>
-        						<mrow> &amp; = p \frac{1}{(1-(1-p))^2}</mrow>
-        						<mrow> &amp; = p \frac{1}{p^2} = \frac{1}{p}</mrow>
-        					</md>
-        			</subsection> 
-           			<subsection>
-        				<title>Derivation of Geometric Variance</title>
-        					<p> </p>
-        					<md>
-        						<mrow>\sigma^2 &amp; = E[X(X-1)] + \mu - \mu^2 </mrow>
-        						<mrow> &amp; = \SUM {k=0} {\infty} {k(k-1)(1-p)^{k-1}p} + \mu - \mu^2 </mrow>
-        						<mrow> &amp; = (1-p)p \SUM {k=2} {\infty} {k(k-1)(1-p)^{k-2}} + \frac{1}{p} - \frac{1}{p^2}</mrow>
-        						<mrow> &amp; = (1-p)p \frac{2}{(1-(1-p))^3} + \frac{1}{p} - \frac{1}{p^2}</mrow>
-        						<mrow> &amp; = \frac{1-p}{p^2}</mrow>
-        					</md>
-        			</subsection> 
-           			<subsection>
-        				<title>Derivation of Geometric Distribution Function</title>
-        					<p> Consider the accumulated probabilities over a range of values...</p>
-        					<md>
-        						<mrow> P(X \le a) &amp; = 1 - P(X \gt a)</mrow>
-        						<mrow> &amp; = 1- \SUM {k={a+1}} {\infty} {(1-p)^{k-1}p}</mrow>
-        						<mrow> &amp; = 1- p \frac{(1-p)^{a}}{1-(1-p)}</mrow>
-        						<mrow> &amp; = 1- (1-p)^{a}</mrow>
-        					</md>
-        			</subsection> 
-        			
-        		</subsection>
-			<subsection>
-				<title>Negative Binomial Series</title>
+			</subsection>
+		</section>
+	
+	
+	
+		<section><title>Probability Functions</title>
+            <subsection>
+            <p>In the formulas below, we will presume that we have a random variable X which maps the sample space S onto some range of real numbers R.  From
+            this set, we then can define a probability function f(x) which acts on the numerical values in R and returns another real number.  We attempt to do so 
+            to obtain (for discrete values) P(sample space value s)<m> = f(X(s))</m>.  That is, the probability of a given outcome s is equal to the composition 
+            which takes s to a numerical value x which is then plugged into f to get the same final values.</p>
+			<definition>
+				<title>Probability Mass Function</title>
+				<statement>Given a discrete random variable X on a space R, a probability mass function on X is given by a function <m>f:R \rightarrow \mathbb{R}</m> such that:
+				<md>
+					<mrow>&amp; \forall x \in R , f(x) \gt 0</mrow>
+					<mrow>&amp; \sum_{x \in R} f(x) = 1</mrow>
+					<mrow>&amp; A \subset R \Rightarrow P(X \in A) = \sum_{x \in A}f(x)</mrow>
+				</md>
+				</statement>
+			</definition>
+			<definition>
+				<title>Probability Density Function</title>
+				<statement>Given a continuous random variable X on a space R, a probability density function on X is given by a function <m>f:R \rightarrow \mathbb{R}</m> such that:
+					<md>
+						<mrow>&amp; \forall x \in R , f(x) \gt 0</mrow>
+						<mrow>&amp; \int_{R} f(x) = 1</mrow>
+						<mrow>&amp; A \subset R \Rightarrow P(X \in A) = \int_{A} f(x) dx</mrow>
+					</md>
+				</statement>
+			</definition>
+			<definition>
+				<title>Distribution Function</title>
+				<statement>Given a random variable X on a space R, a probability distribution function on X is given by a function <m>F:\mathbb{R} \rightarrow \mathbb{R}</m> such that <m>\displaystyle F(x)=P(X \le x)</m>
+				</statement>
+				<subsection>
+					<title>Properties of the Distribution Function</title>
+
+					<theorem>
+						<statement><m>F(x)=0 \forall x \le inf(R)</m></statement>
+						<proof>TBA</proof>
+					</theorem>
+					<theorem>
+						<statement><m>F(x)=1 \forall x \ge sup(R)</m></statement>
+						<proof>TBA</proof>
+					</theorem>
+					<theorem>
+						<statement>F is non-decreasing</statement>
+						<proof>
+							<p>Case 1: R discrete</p>
+							<p>Case 2: R continuous</p>
+							<md>
+								<mrow>x_1 \lt x_2</mrow>
+								<mrow>F(x_2) &amp; = \int_{-\infty}^{x_2} f(x) dx </mrow>
+								<mrow> &amp; = \int_{-\infty}^{x_1} f(x) dx + \int_{x_1}^{x_2} f(x) dx</mrow>
+								<mrow> &amp; \ge \int_{-\infty}^{x_1} f(x) dx</mrow>
+								<mrow> &amp; = F(x_1)</mrow>
+							</md>
+						</proof>
+					</theorem>
+					</subsection>
+				</definition>
+				<subsection>
+					<title>Standard Units</title>
+						<p>Any distribution variable can be converted to “standard units” using the linear translation 
+						<m>\displaystyle z = \frac{x-\mu}{\sigma}</m>. In doing so, then values of z will always represent the number of
+						standard deviations x is from the mean and will provide “dimensionless” comparisons.</p>
+				</subsection>
+            </subsection>
+         </section>
+         
+         
+         
+         <section><title>Geometric and Negative Binomial Distribution</title>
+        	<subsection> 
+			<p>Consider the situation where one can observe a sequence  of independent trials where the likelihood of a success on each individual trial
+			stays constant from trial to trial. Call this likelihood the probably of "success" and denote its value by <m>p</m> 
+			where <m> 0 \lt p \lt 1 </m>.  
+			If we let the variable <m>X</m> measure the number of trials needed in order to obtain the first success, 
+			then the resulting distribution of probabilities is called a Geometric Distribution.</p>
+				<subsection>
+					<title>Derivation of Geometric Probability Function</title>
+						<p> Since successive trials are independent, then the probability of the first success occurring on the mth trial presumes that
+						the previous m-1 trials were all failures.  Therefore the desired probability is given by <m>P(X=m) = P(FF...FS) = (1-p)^{m-1}p</m></p>
+				</subsection> 
+				<subsection>
+					<title>Geometric Distribution sums to 1</title>
+					<md>
+						<mrow>\SUM {k=1} {\infty} {(1-p)^{k-1} p} = p \SUM {j=0} {\infty} {(1-p)^j} = p \frac{1}{1-(1-p)} = 1</mrow>
+					</md>
+				</subsection>
+				<subsection>
+					<title>Derivation of Geometric Mean</title>
+						<p> </p>
+						<md>
+							<mrow>\mu &amp; = E[X] = \SUM {k=0} {\infty} {k(1-p)^{k-1}p}</mrow>
+							<mrow> &amp; = p \SUM {k=1} {\infty} {k(1-p)^{k-1}}</mrow>
+							<mrow> &amp; = p \frac{1}{(1-(1-p))^2}</mrow>
+							<mrow> &amp; = p \frac{1}{p^2} = \frac{1}{p}</mrow>
+						</md>
+				</subsection> 
+				<subsection>
+					<title>Derivation of Geometric Variance</title>
+						<p> </p>
+						<md>
+							<mrow>\sigma^2 &amp; = E[X(X-1)] + \mu - \mu^2 </mrow>
+							<mrow> &amp; = \SUM {k=0} {\infty} {k(k-1)(1-p)^{k-1}p} + \mu - \mu^2 </mrow>
+							<mrow> &amp; = (1-p)p \SUM {k=2} {\infty} {k(k-1)(1-p)^{k-2}} + \frac{1}{p} - \frac{1}{p^2}</mrow>
+							<mrow> &amp; = (1-p)p \frac{2}{(1-(1-p))^3} + \frac{1}{p} - \frac{1}{p^2}</mrow>
+							<mrow> &amp; = \frac{1-p}{p^2}</mrow>
+						</md>
+				</subsection> 
+				<subsection><title>Derivation of Geometric Distribution Function</title>
+						<p> Consider the accumulated probabilities over a range of values...</p>
+						<md>
+							<mrow> P(X \le a) &amp; = 1 - P(X \gt a)</mrow>
+							<mrow> &amp; = 1- \SUM {k={a+1}} {\infty} {(1-p)^{k-1}p}</mrow>
+							<mrow> &amp; = 1- p \frac{(1-p)^{a}}{1-(1-p)}</mrow>
+							<mrow> &amp; = 1- (1-p)^{a}</mrow>
+						</md>
+				</subsection> 
+			</subsection>
+			
+			<subsection><title>Negative Binomial Series</title>
 				<subsection>
 					<theorem xml:id="theorem-NegBinomSeries">
 					<statement> <m>\displaystyle \frac{1}{(a+b)^n} = \SUM {k=0} {\infty} {(-1)^k \binom{n + k - 1}{k} a^k b^{-n-k}}</m> </statement>
@@ -273,7 +341,7 @@
         					</p>
         			</subsection> 
         			<subsection>
-        				<title>Negative Distribution Sums to 1</title>
+        				<title>Negative Binomial Distribution Sums to 1</title>
         				<md>
         					<mrow>\SUM {m=r} {\infty} {\binom{m - 1}{r-1}(1-p)^{m-r}p^r} &amp; = p^r \SUM {m=r} {\infty} {\binom{m - 1}{r-1}(1-p)^{m-r}}</mrow>
         				</md>
@@ -286,8 +354,10 @@
         			</subsection>
 				</subsection>
 			</subsection>
-
         </section>
+        
+        
+        
 		<section>
         	<title>Binomial</title>
             <p>
@@ -376,6 +446,8 @@
 					</md>
 				</subsection>
 			</subsection>
+		</section>
+		<section>
 			<subsection>
 				<title>Poisson</title>
 				<p>Consider the situation when you might want to look at the number of successes which could happen over a given interval
@@ -453,11 +525,11 @@
 						</md>
 					</proof>
 				</theorem>
-				
-				
 			</subsection>
+		</section>
+		<section>
 			<subsection>
-				<title>Exponential Distribution</title>
+				<title>Exponential and Gamma Distributions</title>
 				<p>Consider the situation where you want to measure the time until a desired number of successes. That is, the counterpart to the 
 				Poisson Distribution above. This would be a continous distribution since the variable is time. If you measure the time till the
 				1st success then the resulting distribution is called the “exponential distribution” and if you measure till the kth success, k>1, 
@@ -513,6 +585,117 @@
 					<title>Gamma Distribution Derivation</title>
 				</subsection>
 			</subsection>
+        </section>
+        
+        
+        <section>
+        	<title>The Normal Distribution</title>
+        	<p>A “bell curve” is often utilized when analyzing data. The reasons for doing so can be justified mathematically. For the purposes
+        	of these notes, we will just presume that a given problem presumes the need for such a probability distribution and use it. In general,
+        	given two parameters <m>\mu</m> and <m>\sigma</m>, the density function for the bell curve is given by</p>
+        	<md><mrow>f(x) = \frac{1}{\sigma \sqrt{2\pi}}e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2}</mrow></md>
+        	<p>The resulting probability distribution is called the “Normal Distribution”.</p>
+        
+        	<subsection>
+        		<title>Derivation of properties of the Normal Distribution</title>
+        		<subsection>
+        			<title>Standard Units and the Standard Normal Curve</title>
+        			<p>Converting to standard units using <m>z = \frac{x-\mu}{\sigma}</m> gives the standard normal distribution density function</p>
+        			<md><mrow>\Phi(z) = \frac{1}{\sqrt{2\pi}}e^{-z^2 / 2}</mrow></md>.
+        			<p>In particular, when integrating this always given the simplification</p>
+        				<md><mrow>\int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt{2\pi}}e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2} dx
+        						= \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}e^{-z^2 / 2} dz</mrow></md>
+        			
+        		</subsection>
+        		<subsection>
+        			<title>Total Area under normal curve</title>
+        			<p>By converting to standard units, it is sufficient to show that</p>
+        				<md><mrow>I = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}e^{-z^2 / 2} dz = 1</mrow></md>
+        			<p>Toward that end, consider <m>I^2</m> with a couple of changes in the variable of integration (not related to the x above)</p>
+        			<md>
+        				<mrow>I^2 &amp; = \left [ \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}e^{-x^2 / 2} dx \right ]
+        							\left [ \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}e^{-y^2 / 2} dy \right ]</mrow>
+        				<mrow> &amp; = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \frac{1}{2\pi}e^{-x^2 / 2}e^{-y^2 / 2} dx dy</mrow>
+        				<mrow> &amp; = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \frac{1}{2\pi}e^{-(x^2+y^2)/ 2} dx dy</mrow>
+        				<mrow> &amp; = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \frac{1}{2\pi}e^{-(x^2+y^2)/ 2} dx dy</mrow>
+        				<mrow> &amp; = \int_{0}^{2\pi} \int_{0}^{\infty} \frac{1}{2\pi}e^{-r^2/ 2} r dr d\theta</mrow>
+        				<mrow> &amp; = \frac{1}{2\pi} \int_{0}^{2\pi} -e^{-r^2/ 2} \Big |_0^{\infty} d\theta</mrow>
+        				<mrow> &amp; = \frac{1}{2\pi} \int_{0}^{2\pi} 1 d\theta</mrow>
+        				<mrow> &amp; = \frac{1}{2\pi} \cdot 2\pi = 1</mrow>
+        			</md>
+        		</subsection>
+        		<theorem>
+        			<title>Mean of the Normal Distribution</title>
+        			<statement>The mean of the normal distribution is the provided value of the parameter <m>\mu</m></statement>
+        			<proof>
+        			<p>Using <m>z = \frac{x-\mu}{\sigma}</m> gives <m>x = \sigma z + \mu</m> resulting in</p>
+       				<md>
+       					<mrow>E[X] &amp; = \int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt{2\pi}} x \cdot e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2} dx</mrow>
+       					<mrow> &amp; = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}(\sigma z + \mu) e^{-z^2 / 2} dz </mrow>
+       					<mrow> &amp; = \sigma \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} z e^{-z^2 / 2} dz 
+       					     + \mu \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-z^2 / 2} dz </mrow>
+						<mrow> &amp; = \sigma \cdot -e^{-z^2/2} \Big |_{-\infty}^{\infty} + \mu \cdot 1</mrow>
+						<mrow> &amp; = 0 + \mu</mrow>
+   					</md>
+   					<p>Therefore, the provided parameter <m>\mu</m> is indeed the mean of the distribution.</p>
+   					</proof>
+
+        		</theorem>
+        		<theorem>
+        			<title>Variance of the Normal Distribution</title>
+        			<statement>The variance of the normal distribution is the provided value of the parameter <m>\sigma^2</m></statement>
+        			<proof>
+        			<p>Once again by using <m>x = \sigma z + \mu</m> yields (using integration by parts on the final integral)</p>
+       				<md>
+       					<mrow>Var(X) &amp; = E[X^2] - \mu^2 </mrow>
+       					<mrow> &amp; = 
+       					       \int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt{2\pi}} x^2 \cdot e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2} dx - \mu^2</mrow>
+       					<mrow> &amp; = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}(\sigma z + \mu)^2 e^{-z^2 / 2} dz - \mu^2</mrow>
+       					<mrow> &amp; = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} \sigma^2 z^2 e^{-z^2 / 2} dz
+       					        + \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} 2\sigma z \cdot \mu e^{-z^2 / 2} dz
+       					        + \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} \mu^2 e^{-z^2 / 2} dz - \mu^2</mrow>
+       					<mrow> &amp; = \sigma^2 \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} z^2 e^{-z^2 / 2} dz
+       					        + 2\sigma \mu \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} z e^{-z^2 / 2} dz
+       					        + \mu^2 \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-z^2 / 2} dz - \mu^2</mrow>
+						<mrow> &amp; = \sigma^2 \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} z \cdot z e^{-z^2 / 2} dz + 2\sigma \mu \cdot 0 + \mu^2 -\mu^2</mrow>
+						<mrow> &amp; = \sigma^2 \left [ -z e^{-z^2/2} \Big |_{-\infty}^{\infty} 
+						        + \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} -e^{-z^2 / 2} dz \right ] + 0</mrow>
+						<mrow> &amp; = \sigma^2 \left [ (0-0) - (-1) \right ]</mrow>
+						<mrow> &amp; = \sigma^2</mrow>
+   					</md>
+   					<p>Therefore, the provided parameter <m>\sigma</m> is indeed the standard deviation of the distribution and it’s square is the variance.</p>
+   					</proof>
+        		</theorem>
+        		<theorem>
+        			<title>Maximum of the Normal Distribution</title>
+        			<statement>The maximum of the normal curve occurs at the mean.</statement>
+        			<proof>
+        			<md>
+        				<mrow>f(x) &amp; = \frac{1}{\sigma \sqrt{2\pi}}e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2}</mrow>
+        				<mrow>\Rightarrow f’(x) &amp; 
+        				  = \frac{1}{\sigma \sqrt{2\pi}}e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2} \cdot -\frac{x-\mu}{\sigma} \cdot \frac{1}{\sigma}</mrow>
+        			</md>
+        			<p>Setting this first derivative equal to zero to determine the critical values yields <m>\displaystyle x = \mu</m> as the 
+        			only critical value.  Easily, it can be seen that this yields a maximum (see second derivative below) and therefore the normal 
+        			curve obtains a maximum at the mean and has maximum value <m>\frac{1}{\sigma \sqrt{2\pi}}</m>.</p>
+        			</proof>
+        		</theorem>
+        		<theorem>
+        			<title>Points of Inflection of the Normal Distribution</title>
+        			<statement>The normal curve has points of inflection when <m>\displaystyle x = \mu + \sigma</m> and <m>\displaystyle x = \mu - \sigma</m>.</statement>
+        			<proof>
+        			<md>
+        				<mrow>f’(x) &amp; = \frac{1}{\sigma^3 \sqrt{2\pi}}e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2} \cdot -(x-\mu)</mrow>
+        				<mrow>\Rightarrow f’’(x) &amp; 
+        				= \frac{1}{\sigma^3 \sqrt{2\pi}}e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2} \cdot \left [-({x-\mu}) \cdot -(\frac{x-\mu}{\sigma}) \cdot (\frac{1}{\sigma}) - 1\right ] </mrow>
+						<mrow> &amp; = \frac{1}{\sigma^3 \sqrt{2\pi}} e^{- \left ( \frac{x-\mu}{\sigma}\right )^2 / 2} \cdot \left [  (\frac{x-\mu}{\sigma})^2 - 1 \right ] </mrow>
+        			</md>
+        			<p>Setting this second derivative equal to zero to determine the locations of possible points of inflection yields 
+        			    <m>\displaystyle (\frac{x-\mu}{\sigma})^2 = 1</m> or <m>\displaystyle \Big | \frac{x-\mu}{\sigma} \Big | = 1</m> or finally 
+        			    <m>\displaystyle x = \mu + \sigma</m> and <m>\displaystyle x = \mu - \sigma</m>.</p>
+        			</proof>
+        		</theorem>
+        	</subsection>
         </section>
 
     </article>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--*                                    *-->
 <!--* Generated from MathBook XML source *-->
-<!--*    on 2016-02-11T09:07:26-06:00    *-->
+<!--*    on 2016-02-15T13:53:59-06:00    *-->
 <!--*                                    *-->
 <meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <script type="text/x-mathjax-config">
@@ -150,17 +150,22 @@ r_e = (1+r)^m - 1\notag
 \frac{12}{365} \ln(1+ \frac{0.04}{12}) &amp; = \ln(1+ \frac{r_{365}}{365}) \notag\\
 e^{\frac{12}{365} \ln(1+ \frac{0.04}{12})} &amp; = 1+ \frac{r_{365}}{365} \notag\\
 365(e^{\frac{12}{365} \ln(1+ \frac{0.04}{12})} - 1) &amp; = r_{365} \notag
-\end{align}<p>and the rest is arithmetic.  Easily, the above example generalizes to other compounding periods.</p></article><article class="exercise-like" id="exercise-1"><h5>
-<span class="type">Exercise</span> <span class="counter">1.5</span> <span class="title">Different Compounding Periods</span>
-</h5>
-<p>Compute the sum of \(a = \) and \(b = \):<br>\(a + b =\) </p></article></section><section class="subsection" id="subsection-5"><h4 class="heading">
+\end{align}<p>and the rest is arithmetic.  Easily, the above example generalizes to other compounding periods:</p>\begin{align}
+(1+ \frac{r_1}{m_1})^{m_1} - 1 &amp; = (1+ \frac{r_2}{m_2})^{m_2} - 1 \notag\\
+(1+ \frac{r_1}{m_1})^{m_1} &amp; = (1+ \frac{r_2}{m_2})^{m_2} \notag\\
+\ln(1+ \frac{r_1}{m_1})^{m_1} &amp; = \ln(1+ \frac{r_2}{m_2})^{m_2} \notag\\
+m_1 \ln(1+ \frac{r_1}{m_1}) &amp; = m_2 \ln(1+ \frac{r_2}{m_2}) \notag\\
+\frac{m_1}{m_2} \ln(1+ \frac{r_1}{m_1}) &amp; = \ln(1+ \frac{r_2}{m_2}) \notag\\
+e^{\frac{m_1}{m_2} \ln(1+ \frac{r_1}{m_1})} &amp; = 1+ \frac{r_2}{m_2} \notag\\
+m_2(e^{\frac{m_1}{m_2} \ln(1+ \frac{r_1}{m_1})} - 1) &amp; = r_2 \notag
+\end{align}</article></section><section class="subsection" id="subsection-5"><h4 class="heading">
 <span class="type">Subsection</span> <span class="counter">1.3.2</span> <span class="title">Continuous Compounding of Interest</span>
 </h4>
 <p>As interest is compounded more often, the effective interest rate tends to increase. Indeed, as m increases then the time between
 					periods decreases and becomes infinitesimal.  We would then say that interest is compounded continuously. As it turns out, we will 
 					see that there is a limit to the effective rate as m grows.</p>
 <article class="theorem-like" id="theorem-3"><h5>
-<span class="type">Theorem</span><span class="counter">1.6</span> (<span class="title">Future Value when Compounding Continuously</span>)</h5>\(\displaystyle A = P e^{it}\)</article><article class="proof"><h5>Proof</h5>\begin{align}
+<span class="type">Theorem</span><span class="counter">1.5</span> (<span class="title">Future Value when Compounding Continuously</span>)</h5>\(\displaystyle A = P e^{it}\)</article><article class="proof"><h5>Proof</h5>\begin{align}
 A &amp; = P \lim_{m \rightarrow \infty} (1+i/m)^{m t}\notag\\
   &amp; = P \lim_{m \rightarrow \infty} \left ( (1+i/m)^m \right )^t\notag\\
   &amp; = P \lim_{m \rightarrow \infty} \left ( e^{ \ln(1+i/m)^m} \right )^t\notag\\
@@ -189,7 +194,7 @@ def _(rate = slider(1,12,1),m = slider(2,1000,2),end_time=(1,20,1)):
 				end of the time period. In many real-life situations, one may desire an option where there is perhaps a single deposit at the beginning of 
 				time and then a series of (perhaps equal) payouts over the time period. Such a sequence of payments is called an annuity.</p>
 <article class="theorem-like" id="theorem-4"><h5>
-<span class="type">Theorem</span><span class="counter">1.7</span> (<span class="title">Annuity Future Value </span>)</h5>An annuity of R per period over t years, paying out m times per year with yearly rate i yields 
+<span class="type">Theorem</span><span class="counter">1.6</span> (<span class="title">Annuity Future Value </span>)</h5>An annuity of R per period over t years, paying out m times per year with yearly rate i yields 
 					\(\displaystyle A = R\frac{(1+r)^n-1}{r}\)</article><article class="proof"><h5>Proof</h5>
 <p>We will presume this sequence of regular and equal payments of amount R starts in 1 period from the beginning of time 
 					and then ends on the last day of the allotted time period.  To determine the future value of this accumulated promise, take
@@ -201,7 +206,7 @@ A &amp; = R(1+r)^{n-1} + R(1+r)^{n-2} + R(1+r)^{n-3} +  ...  R(1+r)^{1} + R\nota
  &amp; = R \displaystyle \frac{1-(1+r)^n}{1-(1+r)} \notag\\
  &amp; = R \displaystyle \frac{(1+r)^n-1}{r} \notag
 \end{align}</article><article class="theorem-like" id="corollary-2"><h5>
-<span class="type">Corollary</span><span class="counter">1.8</span> (<span class="title">Annuity Present Value </span>)</h5>An annuity of R per period over t years, paying out m times per year with yearly rate i yields 
+<span class="type">Corollary</span><span class="counter">1.7</span> (<span class="title">Annuity Present Value </span>)</h5>An annuity of R per period over t years, paying out m times per year with yearly rate i yields 
 					\(\displaystyle P = R\frac{1-(1+r)^{-n}}{r}\)</article><article class="proof"><h5>Proof</h5>
 <p>Apply the present value formula to the future value formula above.</p></article></section><section class="subsection" id="subsection-7"><h4 class="heading">
 <span class="type">Subsection</span> <span class="counter">1.5</span> <span class="title">Annuity Calculations</span>
@@ -275,13 +280,18 @@ def _(P = input_box(10000,label='Principle'),
 					is mathematically equivalent to the sequence of payments then all is equivalent. Then, we can tack on the desired cost of living 
 					increase to these annualized payments and use that rate of increase for the yearly annuity.</p>
 <article class="theorem-like" id="theorem-5"><h5>
-<span class="type">Theorem</span><span class="counter">1.9</span> (<span class="title">Yearly Annuity with Cost of Living Adjustment</span>)</h5>The Present Value of a yearly annuity initially in the amount of \(R_y\) which includes yearly cost-of-living adjustments is 
+<span class="type">Theorem</span><span class="counter">1.8</span> (<span class="title">Yearly Annuity with Cost of Living Adjustment</span>)</h5>The Present Value of a yearly annuity initially in the amount of \(R_y\) which includes yearly cost-of-living adjustments is 
 							\(R_y \frac{1}{1+r_e} \left [ \frac{ \left ( \frac{1+a}{1+r_e} \right )^t-1}{ \left (\frac{1+a}{1+r_e} \right )-1} \right]\)
 							with \(R_y\) = first year’s payment, 
 							\(r_e\) = effective yearly rate, a = yearly cost-of-living increase, t = number of years.</article><article class="proof"><h5>Proof</h5>
-<p>To save some time, let’s define \(z = \frac{1+a}{1+r_e}\).  Then, the value of each yearly payment can be
-								valued at the beginning of the annuity and accumulated.  If we assume a starting payment of R at the end of the first
-								year and increase this by a factor of (1+a) for each subsequent year,</p>\begin{align}
+<p>To save some time, let’s define \(z = \frac{1+a}{1+r_e}\).  Notice that if the cost of living increase (a) is greater than
+								the effective rate of interest \(r_e\) then the net investment will grow with a interest rate related to \(z-1 \gt 0\).  
+								On the other
+								hand, if the cost of living increase is less than the effective rate of interest, then the net investment wil grow at an interest
+								rate \(z-1 \lt 0\)...that it, your periodic payments will not be keeping up with inflation.  Notice in the formulas below that this 
+								quotient z essentially replaces the standard compound growth factor (1+r). </p>
+<p>Starting with a payment of R at the end of the first
+								year, increase this by a factor of (1+a) for each subsequent year gives a present value of </p>\begin{align}
 P &amp; = R_y (1+r_e)^{-1} + R_y (1+a)(1+r_e)^{-2} + R_y (1+a)^{2}(1+r_e)^{-3}  + R_y (1+a)^{3}(1+r_e)^{-4} + ... + R_y (1+a)^{t-1}(1+r_e)^{-t}\notag\\
 &amp; = R_y \left [ (1+r_e)^{-1} + (1+a)(1+r_e)^{-2} + (1+a)^{2}(1+r_e)^{-3} + (1+a)^{3}(1+r_e)^{-4} + ... + (1+a)^{t-1}(1+r_e)^{-t} \right ]\notag\\
 &amp; = R_y \frac{1}{1+r_e} \left [ 1 + z + z^2 + z^3 + ... +  z^{t-1} \right ]\notag\\
@@ -292,7 +302,7 @@ P &amp; = R_y (1+r_e)^{-1} + R_y (1+a)(1+r_e)^{-2} + R_y (1+a)^{2}(1+r_e)^{-3}  
 					payments at the end of one year. Taking that value as R in the theorem above gives the present value of the cost-of-living adjusted
 					annuity stream. Of course one can take that present value and determine the value of the income stream at any other desired time.</p>
 <article class="example-like" id="example-2"><h5>
-<span class="type">Example</span> <span class="counter">1.10</span> <span class="title">Yearly Annuity with Cost of Living Increase</span>
+<span class="type">Example</span> <span class="counter">1.9</span> <span class="title">Yearly Annuity with Cost of Living Increase</span>
 </h5>
 <p>Let’s consider the value of making payments of 10 dollars per year in year one and then increasing the payments by a rate of
 					a = 4% each year.  Assuming an interest rate of \(r_e\) = 3% compounded yearly for t = 8 years, what is the present value of this annuity?</p>\begin{align}
@@ -300,27 +310,30 @@ z = \frac{1.04}{1.03} \approx 1.0097\notag\\
 P &amp; \approx 10 \frac{1}{1.03} \left [ \frac{1.0097^8-1}{0.0097} \right]\notag\\
  &amp; = 10 \frac{1}{1.03} 8.2769334 = 80.36 \notag
 \end{align}</article><article class="example-like" id="example-3"><h5>
-<span class="type">Example</span> <span class="counter">1.11</span> <span class="title">Monthly Annuity with Annual Cost of Living Increase</span>
+<span class="type">Example</span> <span class="counter">1.10</span> <span class="title">Monthly Annuity with Annual Cost of Living Increase</span>
 </h5>
 <p>To allow for more frequent payments, say monthly, but with yearly adjustments to the amount of these payments one can determine
 						the future value of the initial payments over one year.  Then, use that value as a “yearly” payment adjusted for cost-of-living increase.</p>
-<p>Consider the following:  Initial monthly payments of $10/month with interest compounded at 3% and with 4% yearly 
+<p>Consider the following:  Initial monthly payments of 10 dollars per month with interest compounded at 3% and with 4% yearly 
 						cost-of-living adjustments for 8 years. First, compute the future value \(R_y\) of a year of payments and then apply the theorem above.</p>\begin{gather}
 r_e = \left ( 1 + \frac{0.03}{12} \right )^{12}-1 \approx 0.0304159\notag\\
 R_y = 10 \frac{(1 + \frac{0.03}{12})^{12}-1}{\frac{0.03}{12}} = 121.66\notag\\
 z = \frac{1.04}{1.0304159} \approx 1.00930119576 \notag\\
 P = 121.66 \frac{1}{1.0304159} \left [ \frac{1.00930119576^8-1}{0.00930119576} \right] = 975.88\notag
 \end{gather}</article><article class="example-like" id="example-4"><h5>
-<span class="type">Example</span> <span class="counter">1.12</span>
+<span class="type">Example</span> <span class="counter">1.11</span>
 </h5>
 <p>The interactive cell below determines the effect of compounding and cost of living increases for each payment of an annuity.</p>
-<div class="sage-compute"><script type="text/x-sage">@interact
+<div class="sage-compute"><script type="text/x-sage">def round(x):
+    return (floor(100*(x+0.005))/100).n()
+    
+@interact
 def _(R = (10),rate = (0.03), m = (1), t = (8), a = (0.04)):
     r = rate/m
     n = m*t
     A = 0
     for k in range(t):
-        R1 = R*(1+a)^(k)
+        R1 = round(R*(1+a)^(k))
         print "Year ",k+1," has payment(s) of ", R1
         yearend = k*m
         print "yearend ",yearend
