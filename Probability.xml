@@ -196,12 +196,12 @@ def _(n = slider(2,20,1,2)):
 		<title>Properties of the Distribution Function</title>
             
 			<theorem xml:id="theorem-Fmin">
-				<statement><m>F(x)=0 \forall x \le inf(R)</m></statement>
+				<statement><m>F(x)=0, \forall x \le \inf(R)</m></statement>
 				<proof>TBA</proof>
 			</theorem>
 			
 			<theorem xml:id="theorem-Fmax">
-				<statement><m>F(x)=1 \forall x \ge sup(R)</m></statement>
+				<statement><m>F(x)=1, \forall x \ge \sup(R)</m></statement>
 				<proof>TBA</proof>
 			</theorem>
 			
@@ -264,13 +264,14 @@ def _(n = slider(2,20,1,2)):
 		<subsection>
 			<title>Derivation of Geometric Probability Function</title>
 				<p> Since successive trials are independent, then the probability of the first success occurring on the mth trial presumes that
-				the previous m-1 trials were all failures.  Therefore the desired probability is given by <m>P(X=m) = P(FF...FS) = (1-p)^{m-1}p</m></p>
+				the previous m-1 trials were all failures.  Therefore the desired probability is given by </p>
+				<me>f(x) = P(X=m) = P(FF...FS) = (1-p)^{m-1}p</me>
 		</subsection> 
 		
-		<subsection>
+		<subsection><title>Properties of the Geometric Distribution</title>
 			<title>Geometric Distribution sums to 1</title>
 			<md>
-				<mrow>\SUM {k=1} {\infty} {(1-p)^{k-1} p} = p \SUM {j=0} {\infty} {(1-p)^j} = p \frac{1}{1-(1-p)} = 1</mrow>
+				<mrow>\SUM {k=1} {\infty} {f(x)} = \SUM {k=1} {\infty} {(1-p)^{k-1} p} = p \SUM {j=0} {\infty} {(1-p)^j} = p \frac{1}{1-(1-p)} = 1</mrow>
 			</md>
 		</subsection>
 		
